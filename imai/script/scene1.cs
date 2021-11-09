@@ -10,7 +10,6 @@ public class scene1 : MonoBehaviour
     {
        Data.Instance.referer = SceneManager.GetActiveScene().name; 
     }
-
     // Update is called once per frame
     void Update()
     {

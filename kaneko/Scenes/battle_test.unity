@@ -286,6 +286,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 286232076}
     m_Modifications:
+    - target: {fileID: 2114331780891832295, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: comandName
+      value: Diffence
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114331780891832295, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: comandmanager
+      value: 
+      objectReference: {fileID: 286232075}
     - target: {fileID: 7389298590744396013, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
       propertyPath: m_Text
       value: "\u307C\u3046\u304E\u3087"
@@ -499,6 +507,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 286232076}
     m_Modifications:
+    - target: {fileID: 2114331780891832295, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: comandName
+      value: Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114331780891832295, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: comandmanager
+      value: 
+      objectReference: {fileID: 286232075}
     - target: {fileID: 7389298590744396013, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
       propertyPath: m_Text
       value: "\u30D5\u30A1\u30A4\u30A2"
@@ -727,7 +743,7 @@ GameObject:
   - component: {fileID: 286232077}
   - component: {fileID: 286232080}
   m_Layer: 5
-  m_Name: player_comad_list
+  m_Name: playerComandManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -843,8 +859,10 @@ MonoBehaviour:
   medicinalHerbs_count: 1
   atackpill_correction: 15
   atackpill_count: 1
+  atackpill_turn: 1
   MPrecovery_recover: 20
   MPrecovery_count: 1
+  diffence_turn: 1
 --- !u!114 &322077392 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2554028242300456702, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
@@ -1111,6 +1129,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 286232076}
     m_Modifications:
+    - target: {fileID: 2114331780891832295, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: comandName
+      value: Herbs
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114331780891832295, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: comandmanager
+      value: 
+      objectReference: {fileID: 286232075}
     - target: {fileID: 7389298590744396013, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
       propertyPath: m_Text
       value: "\u85AC\u8349"
@@ -1118,6 +1144,22 @@ PrefabInstance:
     - target: {fileID: 7389298591751519153, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
       propertyPath: m_Name
       value: comand (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7389298591751519156, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7389298591751519156, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7389298591751519156, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7389298591751519156, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7389298591751519158, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
       propertyPath: m_Pivot.x
@@ -1474,6 +1516,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 286232076}
     m_Modifications:
+    - target: {fileID: 2114331780891832295, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: comandName
+      value: Heal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114331780891832295, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: comandmanager
+      value: 
+      objectReference: {fileID: 286232075}
     - target: {fileID: 7389298590744396013, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
       propertyPath: m_Text
       value: "\u30D2\u30FC\u30EB"
@@ -3749,9 +3799,37 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 286232076}
     m_Modifications:
+    - target: {fileID: 2114331780891832295, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: chara
+      value: 
+      objectReference: {fileID: 1366675262}
+    - target: {fileID: 2114331780891832295, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: comandName
+      value: Atack
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114331780891832295, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: comandmanager
+      value: 
+      objectReference: {fileID: 286232075}
     - target: {fileID: 2255116211293870141, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255116211293870141, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255116211293870141, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255116211293870141, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0000038147
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255116211293870141, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.00013725
       objectReference: {fileID: 0}
     - target: {fileID: 3091753313040749067, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3772,6 +3850,10 @@ PrefabInstance:
     - target: {fileID: 3970152092217785689, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
       propertyPath: m_Name
       value: DeteilsText
+      objectReference: {fileID: 0}
+    - target: {fileID: 3970152092217785689, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7389298590744396013, guid: 8a36108cd3f39424fbd06fc02a820acd, type: 3}
       propertyPath: m_Text

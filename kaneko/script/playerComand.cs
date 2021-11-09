@@ -117,6 +117,9 @@ public class playerComand : MonoBehaviour
             p_hp_c.Recovery(recovery);
             string resultlog = "薬草を使った\nHPを"+recovery+"回復した";
             log_text.addtext(resultlog);
+            if(count <= 0){
+                ChangeColor();
+            }
         }
         else{
             string resultlog = "薬草がありません";
@@ -132,6 +135,9 @@ public class playerComand : MonoBehaviour
             p_mp_c.mpFluctuation(recovery*-1);
             string resultlog = "MP回復薬を使った\nHPを"+recovery+"回復した";
             log_text.addtext(resultlog);
+            if(count <= 0){
+                ChangeColor();
+            }
         }
         else{
             string resultlog = "MP回復薬がありません";
@@ -149,10 +155,18 @@ public class playerComand : MonoBehaviour
             string resultlog = "丸薬を使った\n攻撃力が"+buff_point+"上昇した";
             log_text.addtext(resultlog);
             count -= 1;
+            if(count <= 0){
+                ChangeColor();
+            }
         }
         else{
             string resultlog = "丸薬がありません";
             log_text.addtext(resultlog);
         }
+    }
+
+    void ChangeColor(){
+        Image image = GetComponent<Image>();
+        image.color = new Color(130.0f/255.0f,130.0f/255.0f,130.0f/255.0f);
     }
 }
