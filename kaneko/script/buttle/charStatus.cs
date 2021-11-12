@@ -9,13 +9,11 @@ public class charStatus : MonoBehaviour
     public int mp;//MP
     public int atackPower = 0;//たたかうコマンドの攻撃力
     //各状態変化の画像
-    [HideInInspector]public bool defenceSwich=false;//防御状態フラグ
+    [HideInInspector]public int blockTurn=0;//防御状態フラグ
     [SerializeField]GameObject Abuff;
     [SerializeField]GameObject Adebuff;
     [SerializeField]GameObject Dbuff;
     [SerializeField]GameObject Ddebuff;
-    bool GameOver_Flag = false;//GameOverかどうか
-
     
     // Start is called before the first frame update
     void Awake()
@@ -36,18 +34,16 @@ public class charStatus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(hp<=0 && GameOver_Flag==false){
-            GameOver_Flag = true;
-            Debug.Log("gameOver");
-        }
+
     }
-    public void defence(bool d){
-        if(d){
+    //防御状態制御
+    public void blockStatus(int Turn){
+        if(Turn>0){
             Dbuff.SetActive(true);
-            defenceSwich = true;
+            blockTurn = Turn;
         }
         else{
-            defenceSwich = false;
+            blockTurn = 0;
             Dbuff.SetActive(false);
         }
     }  

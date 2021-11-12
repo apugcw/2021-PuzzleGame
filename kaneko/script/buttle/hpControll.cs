@@ -42,14 +42,14 @@ public class hpControll : MonoBehaviour
     //ダメージ処理
     public void Damage(int damage){
         //防御していた場合
-        if(status.defenceSwich){
+        if(status.blockTurn > 0){
             //テキスト
             string defence_text = status.charName+"は防御した";
             log_text.addtext(defence_text);
             //SE
             //audioSource.PlayOneShot(deffenceSE);
             //防御フラグoff
-            status.defence(false);
+            status.blockStatus(0);
         }
         else{
             hp = hp - damage;            
@@ -72,10 +72,10 @@ public class hpControll : MonoBehaviour
         }
     }
     public void ThroughDamage(int damage){
-        if(status.defenceSwich){
+        if(status.blockTurn > 0){
             string cantText = status.charName+"は防御できなかった";
             log_text.addtext(cantText);
-            status.defence(false);
+            status.blockStatus(0);
         }
         hp = hp - damage;
         string defence_text = status.charName+"は"+damage+"ダメージを受けた";

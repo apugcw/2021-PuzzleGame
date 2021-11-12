@@ -37,7 +37,6 @@ public class enemyMoveManager : MonoBehaviour
     {
         if(enemyHP.hp>0){
             string skillName = csvDatas[nowTurn][1];
-            StartCoroutine(NextTurn());
             switch(skillName){
                 case "Atack":
                     EnemyComand.Atack();
@@ -68,14 +67,5 @@ public class enemyMoveManager : MonoBehaviour
             };
             nowTurn += 1;
         }
-        else{
-
-        }   
-    }
-    IEnumerator NextTurn()
-    {
-        yield return new WaitForSeconds(1.0f);
-        //遅らせたい処理
-        turnmanager.nextturn();//次ターン
     }
 }

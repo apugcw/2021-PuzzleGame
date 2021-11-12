@@ -15,10 +15,14 @@ public class playerComand : MonoBehaviour
     int atackPower;//「戦う」の攻撃力
     enemyMoveManager emManager;//敵の行動開始
     skillActiveManager SAManager;//スキルのアクティブ管理
+    TurnManager turnmanager;//ターン管理プログラム
     skillSE SE;//SE
     // Start is called before the first frame update
     void Awake()
     {
+        //ターン管理スクリプト取得
+        GameObject Turn = GameObject.Find("turn");
+        turnmanager = Turn.GetComponent<TurnManager>();
         //コマンドデータベース取得
         GameObject comandManager = transform.parent.gameObject;
         comandValue = comandManager.GetComponent<comandValue>();
@@ -53,120 +57,183 @@ public class playerComand : MonoBehaviour
         image.color = new Color(130.0f/255.0f,130.0f/255.0f,130.0f/255.0f);
     }
 
+
     //たたかう
     public void Atack(){
-        string resultlog = "たたかうで攻撃";
-        log_text.addtext(resultlog);
-        e_hp_c.Damage(atackPower);
-        StartCoroutine(enemyMoveStart());
         SAManager.activePanel();
-        SE.playSE(2);
+        emManager.enemyMove();//敵の行動
+        StartCoroutine(AtackCoroutine());
+    }
+    IEnumerator AtackCoroutine()
+    {
+        yield return new WaitForSeconds(1.5f);
+        //遅らせたい処理
+        if(p_hp_c.hp>0){
+            string resultlog = "たたかうで攻撃";
+            log_text.addtext(resultlog);
+            e_hp_c.Damage(atackPower);
+            StartCoroutine(NextTurn());
+            SE.playSE(2);
+        }
     }
     //防御
     public void block(){
         string resultlog = "防御した";
         log_text.addtext(resultlog);
-        status.defence(true);
-        StartCoroutine(enemyMoveStart());
+        status.blockStatus(2);
+        StartCoroutine(blockCoroutine());
         SAManager.activePanel();
         SE.playSE(6);
     }
+    IEnumerator blockCoroutine(){
+        yield return new WaitForSeconds(1.5f);
+        emManager.enemyMove();
+        StartCoroutine(NextTurn());
+    }
     //ファイア
     public void fire(){
+        SAManager.activePanel();
         int mp_cost = comandValue.fire_cost;//消費MP
         int damage = comandValue.fire_dmg;//ダメージ
         if(p_mp_c.mpUse(mp_cost)){
+            emManager.enemyMove();//敵の行動
+            StartCoroutine(fireCoroutine(damage));
+        }
+        else{
+            string resultlog = "MPが足りません";
+            log_text.addtext(resultlog);
+        }
+    }
+    IEnumerator fireCoroutine(int damage){
+        yield return new WaitForSeconds(1.5f);
+        if(p_hp_c.hp>0){      
             string resultlog = "ファイアで攻撃";
             log_text.addtext(resultlog);
             e_hp_c.Damage(damage);
             SE.playSE(3);
-            StartCoroutine(enemyMoveStart());
-            SAManager.activePanel();
+            StartCoroutine(NextTurn());
+        }
+          
+    }
+    //アイス
+    public void ice(){
+        SAManager.activePanel();
+        int mp_cost = comandValue.ice_cost;//消費MP
+        int damage = comandValue.fire_dmg;//ダメージ
+        if(p_mp_c.mpUse(mp_cost)){
+            emManager.enemyMove();//敵の行動
+            StartCoroutine(iceCoroutine(damage));
         }
         else{
             string resultlog = "MPが足りません";
             log_text.addtext(resultlog);
         }
-        
     }
-    //アイス
-    public void ice(){
-        int mp_cost = comandValue.ice_cost;
-        int damage = comandValue.ice_dmg;
-        if(p_mp_c.mpUse(mp_cost)){
+    IEnumerator iceCoroutine(int damage){
+        yield return new WaitForSeconds(1.5f);
+        if(p_hp_c.hp>0){      
             string resultlog = "アイスで攻撃";
             log_text.addtext(resultlog);
             e_hp_c.Damage(damage);
             SE.playSE(3);
-            StartCoroutine(enemyMoveStart());
-            SAManager.activePanel();
+            StartCoroutine(NextTurn());
+        } 
+    }
+    //サンダー
+    public void thunder(){
+        SAManager.activePanel();
+        int mp_cost = comandValue.thunder_cost;//消費MP
+        int damage = comandValue.thunder_dmg;//ダメージ
+        if(p_mp_c.mpUse(mp_cost)){
+            emManager.enemyMove();//敵の行動
+            StartCoroutine(thunderCoroutine(damage));
         }
         else{
             string resultlog = "MPが足りません";
             log_text.addtext(resultlog);
-        }   
+        }
     }
-    //サンダー
-    public void thunder(){
-        int mp_cost = comandValue.thunder_cost;
-        int damage = comandValue.thunder_dmg;
-        if(p_mp_c.mpUse(mp_cost)){
+    IEnumerator thunderCoroutine(int damage){
+        yield return new WaitForSeconds(1.5f);
+        if(p_hp_c.hp>0){       
             string resultlog = "サンダーで攻撃";
             log_text.addtext(resultlog);
             e_hp_c.Damage(damage);
             SE.playSE(3);
-            StartCoroutine(enemyMoveStart());
-            SAManager.activePanel();
-        }
-        else{
-            string resultlog = "MPが足りません";
-            log_text.addtext(resultlog);
+            StartCoroutine(NextTurn());
         }
     }
     //ヒール
     public void heal(){
+        SAManager.activePanel();
         int mp_cost = comandValue.heal_cost;//消費MP
         int recovery_point = comandValue.heal_recover;//回復量
         //MP消費，足りなければ実行しない
         if(p_mp_c.mpUse(mp_cost)){
-            p_hp_c.Recovery(recovery_point);
-            string resultlog = "HPを"+recovery_point+"回復した";
-            log_text.addtext(resultlog);
-            SE.playSE(4);
-            StartCoroutine(enemyMoveStart());
-            SAManager.activePanel();
+            emManager.enemyMove();//敵の行動
+            StartCoroutine(healCoroutine(recovery_point));    
         }
         else{
             string resultlog = "MPが足りません";
             log_text.addtext(resultlog);
         }
     }
+    IEnumerator healCoroutine(int recovery_point){
+        yield return new WaitForSeconds(1.5f);
+        if(p_hp_c.hp>0){
+            p_hp_c.Recovery(recovery_point);
+            string resultlog = "HPを"+recovery_point+"回復した";
+            log_text.addtext(resultlog);
+            SE.playSE(4);
+            StartCoroutine(NextTurn());
+        }
+         
+    }
     //薬草
     public void medicinalHerbs(){
+        SAManager.activePanel();
         int count = comandValue.medicinalHerbs_count;//使用回数
         int recovery = comandValue.medicinalHerbs_recover;//回復量
         if(count>0){
-            comandValue.medicinalHerbs_count -= 1;//使用回数消費
-            p_hp_c.Recovery(recovery);
-            string resultlog = "HPを"+recovery+"回復した";
-            SE.playSE(5);
-            log_text.addtext(resultlog);
-            if(count <= 0){
-                ChangeColor();
-            }
-            StartCoroutine(enemyMoveStart());
-            SAManager.activePanel();
+            emManager.enemyMove();//敵の行動
+            StartCoroutine(medicinalHerbsCoroutine(recovery,count)); 
         }
         else{
             string resultlog = "薬草がありません";
             log_text.addtext(resultlog);
         }
     }
+    IEnumerator medicinalHerbsCoroutine(int recovery,int count){
+        yield return new WaitForSeconds(1.5f);
+        if(p_hp_c.hp>0){
+            comandValue.medicinalHerbs_count -= 1;//使用回数消費
+                p_hp_c.Recovery(recovery);
+                string resultlog = "HPを"+recovery+"回復した";
+                SE.playSE(5);
+                log_text.addtext(resultlog);
+                if(count <= 0){
+                    ChangeColor();
+                }
+                StartCoroutine(NextTurn());
+        }
+    }
     //MP回復薬
     public void MPrecovery(){
+        SAManager.activePanel();
         int count= comandValue.MPrecovery_count;//使用回数
         int recovery = comandValue.MPrecovery_recover;//補正値
         if(count>0){
+            emManager.enemyMove();//敵の行動
+            StartCoroutine(MPrecoveryCoroutine(recovery,count));
+        }
+        else{
+            string resultlog = "MP回復薬がありません";
+            log_text.addtext(resultlog);
+        }
+    }
+    IEnumerator MPrecoveryCoroutine(int recovery,int count){
+        yield return new WaitForSeconds(1.5f);
+        if(p_hp_c.hp>0){
             comandValue.MPrecovery_count -= 1;//使用回数消費
             p_mp_c.mpFluctuation(recovery*-1);
             string resultlog = "MPを"+recovery+"回復した";
@@ -175,20 +242,28 @@ public class playerComand : MonoBehaviour
             if(count <= 0){
                 ChangeColor();
             }
-            StartCoroutine(enemyMoveStart());
-            SAManager.activePanel();
+            StartCoroutine(NextTurn());
         }
-        else{
-            string resultlog = "MP回復薬がありません";
-            log_text.addtext(resultlog);
-        }
+         
     }
     //丸薬
     public void atackpill(){
+        SAManager.activePanel();
         int count= comandValue.atackpill_count;//使用回数
         int buff_point = comandValue.atackpill_correction;//補正値
 
         if(count>0){
+            emManager.enemyMove();//敵の行動
+            StartCoroutine(atackpillCoroutine(buff_point,count));
+        }
+        else{
+            string resultlog = "丸薬がありません";
+            log_text.addtext(resultlog);
+        }       
+    }
+    IEnumerator atackpillCoroutine(int buff_point,int count){
+        yield return new WaitForSeconds(1.5f);
+        if(p_hp_c.hp>0){
             comandValue.atackpill_count -= 1;
             atackPower += buff_point;
             string resultlog = "丸薬を使った\n攻撃力が"+buff_point+"上昇した";
@@ -198,20 +273,14 @@ public class playerComand : MonoBehaviour
             if(count <= 0){
                 ChangeColor();
             }
-            //1秒後敵の行動開始
-            StartCoroutine(enemyMoveStart());
-            SAManager.activePanel();
+            StartCoroutine(NextTurn());
         }
-        else{
-            string resultlog = "丸薬がありません";
-            log_text.addtext(resultlog);
-        }       
     }
 
-    IEnumerator enemyMoveStart()
+    IEnumerator NextTurn()
     {
         yield return new WaitForSeconds(1.5f);
         //遅らせたい処理
-        emManager.enemyMove();//敵の行動
+        turnmanager.nextturn();//次ターン
     }
 }

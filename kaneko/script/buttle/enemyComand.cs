@@ -46,7 +46,7 @@ public class enemyComand : MonoBehaviour
     public void block(){
         string resultlog = "防御した";
         log_text.addtext(resultlog);
-        status.defence(true);
+        status.blockStatus(1);
         SE.playSE(6);
     }
     public void lastAtack(){

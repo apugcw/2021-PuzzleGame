@@ -5,20 +5,23 @@ using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour
 {
-    public int Turn=5;
-    int startTurn;
-    Text Turntext;
+    public int Turn=5;//残りターン数
+    int nowTurn=0;//開始時残りターン数
+    Text Turntext;//ターンテキスト
     backLog log_text;//バックログスクリプト
-    Scenemove Gameover;
     ButtleEnd _gameover;//ゲームオーバー画面
     skillActiveManager SAManager;//スキル画面のアクティブ化
+    charStatus p_status;
+    charStatus e_status;
     // Start is called before the first frame update
     void Awake()
     {
-        startTurn = Turn+1;
+        //キャラ状態
+        p_status = GameObject.Find("player_status").GetComponent<charStatus>();
+        e_status = GameObject.Find("enemy_status").GetComponent<charStatus>();
+        //開始時の残りターン表示
         Turntext=GetComponent<Text>();
         Turntext.text="残りターン数:"+Turn;
-        Gameover=GetComponent<Scenemove>();
         //ログテキストのテキストスクリプト取得
         GameObject logText = GameObject.Find("logText");
         log_text = logText.GetComponent<backLog>();
@@ -35,14 +38,16 @@ public class TurnManager : MonoBehaviour
     {
         
     }
-    //次ターンへ移行，残りターンが0ならgameover
+    //次ターンへ移行
     public void nextturn(){
-        Turn-=1;
-        int nextTrun = startTurn-Turn;
-        string nextTurnS = nextTrun.ToString();
-        string resultlog = nextTurnS+"ターン目";
+        //防御状態解除
+        p_status.blockStatus(p_status.blockTurn-1);
+        e_status.blockStatus(e_status.blockTurn-1);
+        //ターン管理
+        nowTurn += 1;
+        string resultlog = nowTurn+"ターン目";
         log_text.addtext(resultlog);
-        Turntext.text="残りターン数:"+Turn;
+        Turntext.text="残りターン数:"+(Turn-nowTurn);
         if(Turn == 0)
         {
            //Gameover.nextscene("GameOver");
