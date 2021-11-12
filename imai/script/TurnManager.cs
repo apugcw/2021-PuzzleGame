@@ -10,7 +10,7 @@ public class TurnManager : MonoBehaviour
     Text Turntext;
     backLog log_text;//バックログスクリプト
     Scenemove Gameover;
-    GameOver _gameover;//ゲームオーバー画面
+    ButtleEnd _gameover;//ゲームオーバー画面
     skillActiveManager SAManager;
     // Start is called before the first frame update
     void Awake()
@@ -23,8 +23,8 @@ public class TurnManager : MonoBehaviour
         GameObject logText = GameObject.Find("logText");
         log_text = logText.GetComponent<backLog>();
         //ゲームオーバーシーン移動
-        var gameover_panel = GameObject.Find("gameOver_panel");
-        _gameover = gameover_panel.GetComponent<GameOver>();
+        var gameover_panel = GameObject.Find("ButtleEnd_panel");
+        _gameover = gameover_panel.GetComponent<ButtleEnd>();
         //スキル使用可能にする
         var panel = GameObject.Find("playerComandManager");
         SAManager = panel.GetComponent<skillActiveManager>();

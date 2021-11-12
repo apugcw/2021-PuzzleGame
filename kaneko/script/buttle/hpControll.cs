@@ -15,7 +15,7 @@ public class hpControll : MonoBehaviour
     public AudioClip healSE;
     public AudioClip deffenceSE;
     //AudioSource audioSource;//音スクリプト
-    GameOver _gameover;
+    ButtleEnd _buttleEnd;
     // Start is called before the first frame update
     void Awake()
     {   
@@ -35,8 +35,8 @@ public class hpControll : MonoBehaviour
         //SE用
         //audioSource = GetComponent<AudioSource>();
         //gameover
-        var gameover_panel = GameObject.Find("gameOver_panel");
-        _gameover = gameover_panel.GetComponent<GameOver>();
+        var gameover_panel = GameObject.Find("ButtleEnd_panel");
+        _buttleEnd = gameover_panel.GetComponent<ButtleEnd>();
     }
 
     //ダメージ処理
@@ -59,7 +59,10 @@ public class hpControll : MonoBehaviour
                 hp = 0;
                 hp_text.text = "HP:"+hp.ToString("000");
                 if(chara.tag == "Player"){
-                    _gameover.Move_gameOver();
+                    _buttleEnd.Move_gameOver();
+                }
+                else if(chara.tag == "enemy"){
+                    _buttleEnd.Move_victory();
                 }
             }
             hp_text.text = "HP:"+hp.ToString("000");
@@ -79,8 +82,11 @@ public class hpControll : MonoBehaviour
         if(hp<=0){
             hp = 0;
             if(chara.tag == "Player"){
-                _gameover.Move_gameOver();
+                _buttleEnd.Move_gameOver();
             }
+            else if(chara.tag == "enemy"){
+                    _buttleEnd.Move_victory();
+                }
         }
         hp_text.text = "HP:"+hp.ToString("000");
         //audioSource.PlayOneShot(dagameSE);
