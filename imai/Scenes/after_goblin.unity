@@ -407,7 +407,7 @@ MonoBehaviour:
   - a
   uiText: {fileID: 510737954}
   intervalForCharacterDisplay: 0.05
-  scenename: battle_test
+  scenename: battle_dragon
 --- !u!4 &583603623
 Transform:
   m_ObjectHideFlags: 0
@@ -434,7 +434,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6746d16b7d20dbc4b933578f0bf49e1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scenename: 
 --- !u!1 &1132731089
 GameObject:
   m_ObjectHideFlags: 0

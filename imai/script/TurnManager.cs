@@ -11,7 +11,7 @@ public class TurnManager : MonoBehaviour
     backLog log_text;//バックログスクリプト
     Scenemove Gameover;
     ButtleEnd _gameover;//ゲームオーバー画面
-    skillActiveManager SAManager;
+    skillActiveManager SAManager;//スキル画面のアクティブ化
     // Start is called before the first frame update
     void Awake()
     {

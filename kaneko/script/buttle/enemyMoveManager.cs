@@ -46,10 +46,11 @@ public class enemyMoveManager : MonoBehaviour
                 case "LastAtack":
                     EnemyComand.lastAtack();
                     break;
-                /*
-                case "Atack":
-                    EnemyComand.Atack();
+                
+                case "Block":
+                    EnemyComand.block();
                     break;
+                    /*
                 case "Atack":
                     EnemyComand.Atack();
                     break;
@@ -68,7 +69,7 @@ public class enemyMoveManager : MonoBehaviour
             nowTurn += 1;
         }
         else{
-            
+
         }   
     }
     IEnumerator NextTurn()

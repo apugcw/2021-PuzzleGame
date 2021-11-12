@@ -34,6 +34,7 @@ public class ButtleEnd : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
     public void Move_victory(){
+        Debug.Log("勝利判定");
         this.gameObject.SetActive(true);
         victory_txt.SetActive(true);
         audioSource.PlayOneShot(victorySE);
@@ -47,13 +48,15 @@ public class ButtleEnd : MonoBehaviour
         StartCoroutine(sceneMove(false));
     }
     
-    IEnumerator sceneMove(bool flag){
-        yield return new WaitForSeconds(2.0f);
+    IEnumerator sceneMove(bool flag){     
         if(flag){
-            GameoverScene.nextscene("GameOver");
+            yield return new WaitForSeconds(3.0f);
+            Debug.Log("次シーン遷移");
+            GameoverScene.nextscene(NextSceneName);            
         }
         else{
-            GameoverScene.nextscene(NextSceneName);
+            yield return new WaitForSeconds(2.0f);
+            GameoverScene.nextscene("GameOver");
         }
     }
 }

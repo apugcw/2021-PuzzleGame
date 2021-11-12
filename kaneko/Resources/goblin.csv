@@ -1,6 +1,6 @@
 ﻿攻撃ターン,行動内容,攻撃リスト,攻撃内容
 1,Atack,Atack,
-2,Atack,Defence,
+2,Block,Block,
 3,Atack,LastAtack,会心の一撃，防御貫通
 4,Atack,,
 5,LastAtack,,

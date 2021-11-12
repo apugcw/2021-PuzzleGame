@@ -62,6 +62,7 @@ public class hpControll : MonoBehaviour
                     _buttleEnd.Move_gameOver();
                 }
                 else if(chara.tag == "enemy"){
+                    Debug.Log("敵死亡");
                     _buttleEnd.Move_victory();
                 }
             }
@@ -85,8 +86,8 @@ public class hpControll : MonoBehaviour
                 _buttleEnd.Move_gameOver();
             }
             else if(chara.tag == "enemy"){
-                    _buttleEnd.Move_victory();
-                }
+                _buttleEnd.Move_victory();
+            }
         }
         hp_text.text = "HP:"+hp.ToString("000");
         //audioSource.PlayOneShot(dagameSE);

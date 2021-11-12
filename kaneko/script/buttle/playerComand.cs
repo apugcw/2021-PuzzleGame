@@ -73,8 +73,8 @@ public class playerComand : MonoBehaviour
     }
     //ファイア
     public void fire(){
-        int mp_cost = 15;//消費MP
-        int damage = 30;//ダメージ
+        int mp_cost = comandValue.fire_cost;//消費MP
+        int damage = comandValue.fire_dmg;//ダメージ
         if(p_mp_c.mpUse(mp_cost)){
             string resultlog = "ファイアで攻撃";
             log_text.addtext(resultlog);
@@ -91,8 +91,8 @@ public class playerComand : MonoBehaviour
     }
     //アイス
     public void ice(){
-        int mp_cost = 25;
-        int damage = 45;
+        int mp_cost = comandValue.ice_cost;
+        int damage = comandValue.ice_dmg;
         if(p_mp_c.mpUse(mp_cost)){
             string resultlog = "アイスで攻撃";
             log_text.addtext(resultlog);
@@ -108,8 +108,8 @@ public class playerComand : MonoBehaviour
     }
     //サンダー
     public void thunder(){
-        int mp_cost = 40;
-        int damage = 60;
+        int mp_cost = comandValue.thunder_cost;
+        int damage = comandValue.thunder_dmg;
         if(p_mp_c.mpUse(mp_cost)){
             string resultlog = "サンダーで攻撃";
             log_text.addtext(resultlog);
@@ -125,8 +125,8 @@ public class playerComand : MonoBehaviour
     }
     //ヒール
     public void heal(){
-        int mp_cost = 10;//消費MP
-        int recovery_point = 20;//回復量
+        int mp_cost = comandValue.heal_cost;//消費MP
+        int recovery_point = comandValue.heal_recover;//回復量
         //MP消費，足りなければ実行しない
         if(p_mp_c.mpUse(mp_cost)){
             p_hp_c.Recovery(recovery_point);
@@ -189,7 +189,7 @@ public class playerComand : MonoBehaviour
         int buff_point = comandValue.atackpill_correction;//補正値
 
         if(count>0){
-            comandValue.atackpill_count -= 0;
+            comandValue.atackpill_count -= 1;
             atackPower += buff_point;
             string resultlog = "丸薬を使った\n攻撃力が"+buff_point+"上昇した";
             SE.playSE(5);
