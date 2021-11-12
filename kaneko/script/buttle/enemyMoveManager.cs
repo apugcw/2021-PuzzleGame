@@ -13,9 +13,11 @@ public class enemyMoveManager : MonoBehaviour
     public string filename = "";
     List<string[]> csvDatas = new List<string[]>();
     TurnManager turnmanager;//ターン管理プログラム
+    hpControll enemyHP;
     // Start is called before the first frame update
     void Start()
     {   
+        enemyHP = GameObject.Find("enemyHP").GetComponent<hpControll>();
         //ターン管理スクリプト取得
         GameObject Turn = GameObject.Find("turn");
         turnmanager = Turn.GetComponent<TurnManager>();
@@ -33,36 +35,41 @@ public class enemyMoveManager : MonoBehaviour
 
     public void enemyMove()
     {
-        string skillName = csvDatas[nowTurn][1];
-        StartCoroutine(NextTurn());
-        switch(skillName){
-            case "Atack":
-                EnemyComand.Atack();
-                break;
+        if(enemyHP.hp>0){
+            string skillName = csvDatas[nowTurn][1];
+            StartCoroutine(NextTurn());
+            switch(skillName){
+                case "Atack":
+                    EnemyComand.Atack();
+                    break;
+                
+                case "LastAtack":
+                    EnemyComand.lastAtack();
+                    break;
+                /*
+                case "Atack":
+                    EnemyComand.Atack();
+                    break;
+                case "Atack":
+                    EnemyComand.Atack();
+                    break;
+                case "Atack":
+                    EnemyComand.Atack();
+                    break;
+                case "Atack":
+                    EnemyComand.Atack();
+                    break;
+                case "Atack":
+                    EnemyComand.Atack();
+                    break;
+                    */
+                
+            };
+            nowTurn += 1;
+        }
+        else{
             
-            case "LastAtack":
-                EnemyComand.lastAtack();
-                break;
-            /*
-            case "Atack":
-                EnemyComand.Atack();
-                break;
-            case "Atack":
-                EnemyComand.Atack();
-                break;
-            case "Atack":
-                EnemyComand.Atack();
-                break;
-            case "Atack":
-                EnemyComand.Atack();
-                break;
-            case "Atack":
-                EnemyComand.Atack();
-                break;
-                */
-             
-        };
-        nowTurn += 1;      
+        }   
     }
     IEnumerator NextTurn()
     {
