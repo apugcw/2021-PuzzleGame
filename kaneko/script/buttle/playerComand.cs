@@ -13,6 +13,7 @@ public class playerComand : MonoBehaviour
     mpControll p_mp_c;//プレイヤーMP管理スクリプト
     backLog log_text;//バックログスクリプト
     int atackPower;//「戦う」の攻撃力
+    GameObject Prophecy;//預言書
     enemyMoveManager emManager;//敵の行動開始
     skillActiveManager SAManager;//スキルのアクティブ管理
     TurnManager turnmanager;//ターン管理プログラム
@@ -30,6 +31,8 @@ public class playerComand : MonoBehaviour
         GameObject enemyHP = GameObject.Find("enemyHP");
         e_hp_c = enemyHP.GetComponent<hpControll>();
         //プレイヤー関係
+        //預言書の取得
+        Prophecy = GameObject.Find("Prophecy");
         //攻撃力
         GameObject player = GameObject.Find("player_status");
         status = player.GetComponent<charStatus>();
@@ -275,6 +278,11 @@ public class playerComand : MonoBehaviour
             }
             StartCoroutine(NextTurn());
         }
+    }
+
+    public void ProphecyOpen(){
+        Prophecy.SetActive(true);
+        SAManager.activePanel();
     }
 
     IEnumerator NextTurn()
