@@ -407,7 +407,7 @@ MonoBehaviour:
   - a
   uiText: {fileID: 510737954}
   intervalForCharacterDisplay: 0.05
-  scenename: battle_boss
+  scenename: battle_dragon
 --- !u!4 &583603623
 Transform:
   m_ObjectHideFlags: 0
@@ -650,7 +650,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 640f4987768556e4190e6772d6f39d90, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 68a335bf51b1db44889d87151e59189a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
