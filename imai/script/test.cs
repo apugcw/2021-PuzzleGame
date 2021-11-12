@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class test : MonoBehaviour
 {
-     [SerializeField] private UGUI tmp;
+    /*
+    [SerializeField] private UGUI tmp;
     void Start()
     {
         int lineCnt = GetLine(tmp.text);
@@ -21,4 +22,5 @@ public class test : MonoBehaviour
         int ret = before.Length - after.Length;
         return ret;
     }
+    */
 }

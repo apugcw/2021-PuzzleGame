@@ -5,18 +5,8 @@ using UnityEngine.SceneManagement;
 public class Scenemove : MonoBehaviour
 {
     string SceneNumber;
-    public void nextscene(int SceneNumber)
+    public void nextscene(string SceneName)
     {
-        /*
-        SceneNumber
-        0:GameOver
-        1:Title
-        2:Intro
-        3:stage1
-        4:stage2
-        5:stage3
-        6:ED
-        */
-        SceneManager.LoadScene(SceneNumber);
+        SceneManager.LoadScene(SceneName);
     }
  }

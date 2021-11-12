@@ -69,9 +69,9 @@ public class TextController : MonoBehaviour
         // 文字カウントを初期化
 		lastUpdateCharacter = -1;
 	}
-         public void nextscene(string scenename)
-     {        
+    public void nextscene(string scenename)
+	{        
 
-              Nextscene.nextscene(scenename);
-     }
+    Nextscene.nextscene(scenename);
+    }
 }

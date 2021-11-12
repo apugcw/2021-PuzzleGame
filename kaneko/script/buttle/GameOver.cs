@@ -42,7 +42,7 @@ public class GameOver : MonoBehaviour
     }
     IEnumerator sceneMove(){
         yield return new WaitForSeconds(2.0f);
-        GameoverScene.nextscene(0);
-        Debug.Log("gameOver");
+        GameoverScene.nextscene("GameOver");
+        //Debug.Log("gameOver");
     }
 }
