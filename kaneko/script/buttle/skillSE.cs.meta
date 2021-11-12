@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 8b860ba52dbb70f4d8dc31ff1d22ec5a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - PhysicAtack: {fileID: 8300000, guid: 7ee76581db2c13d46a10922d42a53bdb, type: 3}
+  - SwordAtack: {fileID: 8300000, guid: f6a1eb10baed9144ea7b54b0c288cca5, type: 3}
+  - MagicAtack: {fileID: 8300000, guid: 3acf1e1d158e82c44b5770ccf8ccd136, type: 3}
+  - heal: {fileID: 8300000, guid: 8b8746214b7413448a230aa5dad0550a, type: 3}
+  - Item: {fileID: 8300000, guid: c0d4996ec420f654e9e881dc0ac974ed, type: 3}
+  - Gurd: {fileID: 8300000, guid: 814a63dc28af79f4693116ddf9274630, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

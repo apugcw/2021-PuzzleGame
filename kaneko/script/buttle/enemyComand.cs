@@ -10,10 +10,14 @@ public class enemyComand : MonoBehaviour
     mpControll p_mp_c;//プレイヤーMP管理スクリプト
     backLog log_text;//バックログスクリプト
     TurnManager turnmanager;//ターン管理プログラム
-
+    charStatus status;//プレイヤーステータススクリプト
+    skillSE SE;
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+        //ステータス
+        GameObject player = GameObject.Find("enemy_status");
+        status = player.GetComponent<charStatus>();
         //各コマンドの値
         GameObject comandManager = transform.parent.gameObject;
         comandValue = comandManager.GetComponent<comandValue>();
@@ -28,14 +32,29 @@ public class enemyComand : MonoBehaviour
         //ターン管理スクリプト取得
         GameObject Turn = GameObject.Find("turn");
         turnmanager = Turn.GetComponent<TurnManager>();
+        //SE
+        SE = GameObject.Find("SEManager").GetComponent<skillSE>();
     }
 
     public void Atack(){
-        int atackPower = 10;
-        string resultlog = "たたかうで攻撃";
+        int atackPower = status.atackPower;
+        string resultlog = "たたかうで攻撃した";
         log_text.addtext(resultlog);
         p_hp_c.Damage(atackPower);
-        //ターン経過
-        turnmanager.nextturn();
+        SE.playSE(1);
     }
+    public void block(){
+        string resultlog = "防御した";
+        log_text.addtext(resultlog);
+        status.defence(true);
+        SE.playSE(6);
+    }
+    public void lastAtack(){
+        int atackPower = p_hp_c.hp;
+        string resultlog = "会心の一撃を放った";
+        log_text.addtext(resultlog);
+        p_hp_c.ThroughDamage(atackPower);
+        SE.playSE(1);
+    }
+    
 }

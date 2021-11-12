@@ -7,15 +7,17 @@ public class playerComand : MonoBehaviour
 {
     charStatus status;//プレイヤーステータススクリプト
     comandValue comandValue;//各コマンドの値データベース
-    Dictionary<string,int[]> comandDic;//データベース内のコマンド値辞書<key,[効果値，コスト]>
+    //Dictionary<string,int[]> comandDic;//データベース内のコマンド値辞書<key,[効果値，コスト]> 使わないかも
     hpControll e_hp_c;//敵HP管理スクリプト
     hpControll p_hp_c;//プレイヤーHP管理スクリプト
     mpControll p_mp_c;//プレイヤーMP管理スクリプト
     backLog log_text;//バックログスクリプト
     int atackPower;//「戦う」の攻撃力
-    
+    enemyMoveManager emManager;//敵の行動開始
+    skillActiveManager SAManager;//スキルのアクティブ管理
+    skillSE SE;//SE
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //コマンドデータベース取得
         GameObject comandManager = transform.parent.gameObject;
@@ -37,6 +39,18 @@ public class playerComand : MonoBehaviour
         //ログテキストのテキストスクリプト取得
         GameObject logText = GameObject.Find("logText");
         log_text = logText.GetComponent<backLog>();
+        //敵行動スクリプトの取得
+        GameObject enemy = GameObject.Find("enemy");
+        emManager = enemy.GetComponent<enemyMoveManager>();
+        //スキルのアクティブ管理
+        var SM = GameObject.Find("playerComandManager");
+        SAManager = SM.GetComponent<skillActiveManager>();
+        //SE
+        SE = GameObject.Find("SEManager").GetComponent<skillSE>();
+    }
+    void ChangeColor(){
+        Image image = GetComponent<Image>();
+        image.color = new Color(130.0f/255.0f,130.0f/255.0f,130.0f/255.0f);
     }
 
     //たたかう
@@ -44,12 +58,18 @@ public class playerComand : MonoBehaviour
         string resultlog = "たたかうで攻撃";
         log_text.addtext(resultlog);
         e_hp_c.Damage(atackPower);
+        StartCoroutine(enemyMoveStart());
+        SAManager.activePanel();
+        SE.playSE(2);
     }
     //防御
     public void block(){
-        status.defence(true);
         string resultlog = "防御した";
         log_text.addtext(resultlog);
+        status.defence(true);
+        StartCoroutine(enemyMoveStart());
+        SAManager.activePanel();
+        SE.playSE(6);
     }
     //ファイア
     public void fire(){
@@ -59,11 +79,15 @@ public class playerComand : MonoBehaviour
             string resultlog = "ファイアで攻撃";
             log_text.addtext(resultlog);
             e_hp_c.Damage(damage);
+            SE.playSE(3);
+            StartCoroutine(enemyMoveStart());
+            SAManager.activePanel();
         }
         else{
             string resultlog = "MPが足りません";
             log_text.addtext(resultlog);
         }
+        
     }
     //アイス
     public void ice(){
@@ -73,11 +97,14 @@ public class playerComand : MonoBehaviour
             string resultlog = "アイスで攻撃";
             log_text.addtext(resultlog);
             e_hp_c.Damage(damage);
+            SE.playSE(3);
+            StartCoroutine(enemyMoveStart());
+            SAManager.activePanel();
         }
         else{
             string resultlog = "MPが足りません";
             log_text.addtext(resultlog);
-        }
+        }   
     }
     //サンダー
     public void thunder(){
@@ -87,6 +114,9 @@ public class playerComand : MonoBehaviour
             string resultlog = "サンダーで攻撃";
             log_text.addtext(resultlog);
             e_hp_c.Damage(damage);
+            SE.playSE(3);
+            StartCoroutine(enemyMoveStart());
+            SAManager.activePanel();
         }
         else{
             string resultlog = "MPが足りません";
@@ -100,8 +130,11 @@ public class playerComand : MonoBehaviour
         //MP消費，足りなければ実行しない
         if(p_mp_c.mpUse(mp_cost)){
             p_hp_c.Recovery(recovery_point);
-            string resultlog = "ヒールを使った\nHPを"+recovery_point+"回復した";
+            string resultlog = "HPを"+recovery_point+"回復した";
             log_text.addtext(resultlog);
+            SE.playSE(4);
+            StartCoroutine(enemyMoveStart());
+            SAManager.activePanel();
         }
         else{
             string resultlog = "MPが足りません";
@@ -115,11 +148,14 @@ public class playerComand : MonoBehaviour
         if(count>0){
             comandValue.medicinalHerbs_count -= 1;//使用回数消費
             p_hp_c.Recovery(recovery);
-            string resultlog = "薬草を使った\nHPを"+recovery+"回復した";
+            string resultlog = "HPを"+recovery+"回復した";
+            SE.playSE(5);
             log_text.addtext(resultlog);
             if(count <= 0){
                 ChangeColor();
             }
+            StartCoroutine(enemyMoveStart());
+            SAManager.activePanel();
         }
         else{
             string resultlog = "薬草がありません";
@@ -133,11 +169,14 @@ public class playerComand : MonoBehaviour
         if(count>0){
             comandValue.MPrecovery_count -= 1;//使用回数消費
             p_mp_c.mpFluctuation(recovery*-1);
-            string resultlog = "MP回復薬を使った\nHPを"+recovery+"回復した";
+            string resultlog = "MPを"+recovery+"回復した";
+            SE.playSE(5);
             log_text.addtext(resultlog);
             if(count <= 0){
                 ChangeColor();
             }
+            StartCoroutine(enemyMoveStart());
+            SAManager.activePanel();
         }
         else{
             string resultlog = "MP回復薬がありません";
@@ -153,20 +192,26 @@ public class playerComand : MonoBehaviour
             comandValue.atackpill_count -= 0;
             atackPower += buff_point;
             string resultlog = "丸薬を使った\n攻撃力が"+buff_point+"上昇した";
+            SE.playSE(5);
             log_text.addtext(resultlog);
             count -= 1;
             if(count <= 0){
                 ChangeColor();
             }
+            //1秒後敵の行動開始
+            StartCoroutine(enemyMoveStart());
+            SAManager.activePanel();
         }
         else{
             string resultlog = "丸薬がありません";
             log_text.addtext(resultlog);
-        }
+        }       
     }
 
-    void ChangeColor(){
-        Image image = GetComponent<Image>();
-        image.color = new Color(130.0f/255.0f,130.0f/255.0f,130.0f/255.0f);
+    IEnumerator enemyMoveStart()
+    {
+        yield return new WaitForSeconds(1.5f);
+        //遅らせたい処理
+        emManager.enemyMove();//敵の行動
     }
 }

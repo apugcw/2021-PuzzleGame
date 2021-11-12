@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 //シーンごとにシーンの名前を保存
-public class scene1 : MonoBehaviour
+public class sceneSave : MonoBehaviour
 {
     // Start is called before the first frame update
     public void Start()

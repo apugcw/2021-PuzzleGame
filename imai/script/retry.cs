@@ -10,6 +10,3 @@ public void RetryButton()
         SceneManager.LoadScene(Data.Instance.referer);
     }
 }
-
-
-

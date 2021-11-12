@@ -5,17 +5,20 @@ using UnityEngine;
 public class charStatus : MonoBehaviour
 {
     public string charName;
-    public int hp;
-    public int mp;
-    public int atackPower;//たたかうコマンドの攻撃力
+    public int hp;//HP
+    public int mp;//MP
+    public int atackPower = 0;//たたかうコマンドの攻撃力
+    //各状態変化の画像
     [HideInInspector]public bool defenceSwich=false;//防御状態フラグ
     [SerializeField]GameObject Abuff;
     [SerializeField]GameObject Adebuff;
     [SerializeField]GameObject Dbuff;
     [SerializeField]GameObject Ddebuff;
+    bool GameOver_Flag = false;//GameOverかどうか
+
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         /*
         Abuff = GameObject.Find("attack_buff");
@@ -33,7 +36,10 @@ public class charStatus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(hp<=0 && GameOver_Flag==false){
+            GameOver_Flag = true;
+            Debug.Log("gameOver");
+        }
     }
     public void defence(bool d){
         if(d){
@@ -44,6 +50,5 @@ public class charStatus : MonoBehaviour
             defenceSwich = false;
             Dbuff.SetActive(false);
         }
-
-    }
+    }  
 }

@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class TurnStateMachine : MonoBehaviour
 {
+    /*
     public Pokemon myPokemon;
     public Pokemon enemyPokemon;
 
     List<Pokemon> SortedPokemons = new List<Pokemon> ();
 
+    */
     /* ターン終了時の処理に関わる部分以外は割愛 ステートマシンで制御します*/
-
+    /*
     void StartTurnEndProcessing()
     {
         //コルーチンを開始
@@ -34,7 +36,7 @@ public class TurnStateMachine : MonoBehaviour
         }
 
         /* 中略 */
-
+        /*
         //4.素早さが同じ場合は順番をシャッフルする
         Shuffle (isSame);
 
@@ -46,7 +48,7 @@ public class TurnStateMachine : MonoBehaviour
         }
 
         /* 中略 */
-
+        /*
         //6.勝敗判定
         if (CheckAlive()) {
             yield break;
@@ -110,4 +112,5 @@ public class TurnStateMachine : MonoBehaviour
     {
         //ターン開始時に移る
     }
+    */
 }

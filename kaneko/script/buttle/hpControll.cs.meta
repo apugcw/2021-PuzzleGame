@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 55fbc77512775ca41bed39fdfc6d7241
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - dagameSE: {instanceID: 0}
+  - healSE: {instanceID: 0}
+  - deffenceSE: {instanceID: 0}
+  - gameOver_p: {fileID: 3092945159257771694, guid: 6094f0b8333f8b34583450cb398cb8d4, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
